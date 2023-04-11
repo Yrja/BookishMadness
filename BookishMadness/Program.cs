@@ -25,7 +25,8 @@ builder.Services.AddTransient<IBooksService, BookService>();
 
 
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+    .AddNewtonsoftJson();
 
 var app = builder.Build();
 

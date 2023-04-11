@@ -1,4 +1,6 @@
-﻿namespace BookishMadness.DAL.Entities
+﻿using BookishMadness.DAL.Enums;
+
+namespace BookishMadness.DAL.Entities
 {
     public class BookDTO
     {
@@ -8,5 +10,7 @@
         public string Author { get; set; }
         public int PagesCount { get; set; }
         public string Genre { get; set; }
+        public BookStatus Status { get; set; }
+
     }
 }
