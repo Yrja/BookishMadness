@@ -7,10 +7,10 @@ namespace BookishMadness.BLL.Services
 {
     public class BookService : IBooksService
     {
-        IUnitOfWork Database { get; set; }
+        IRepository<Book> Database { get; set; }
         private IMapper _mapper;
 
-        public BookService(IUnitOfWork database, IMapper mapper)
+        public BookService(IRepository<Book> database, IMapper mapper)
         {
             Database = database;
             _mapper = mapper;
@@ -18,40 +18,40 @@ namespace BookishMadness.BLL.Services
 
         public void Create(BookDTO item)
         {
-            Database.Books.Create(_mapper.Map<Book>(item));
-            //Database.SaveChanges();
+            Database.Create(_mapper.Map<Book>(item));
+            Database.SaveChanges();
         }
 
         public void Delete(Guid id)
         {
-            Database.Books.Delete(id);
-            //Database.SaveChanges();
+            Database.Delete(id);
+            Database.SaveChanges();
 
         }
 
         public List<BookDTO> Find()
         {
-            return _mapper.Map<List<BookDTO>>(Database.Books.Find(x => x.Author.Contains("Garber")));
+            return _mapper.Map<List<BookDTO>>(Database.Find(x => x.Author.Contains("Garber")));
 
         }
 
         public BookDTO Get(Guid id)
         {
-            var book = _mapper.Map<BookDTO>(Database.Books.Get(id));
+            var book = _mapper.Map<BookDTO>(Database.Get(id));
             return book;
         }
 
         public List<BookDTO> GetAllBooks()
         {
-            var books = _mapper.Map<List<BookDTO>>(Database.Books.GetAll());
+            var books = _mapper.Map<List<BookDTO>>(Database.GetAll());
             return books;
         }
 
         public void Update(BookDTO item)
         {
             var book = _mapper.Map<Book>(item);
-            Database.Books.Update(book);
-            //Database.SaveChanges();
+            Database.Update(book);
+            Database.SaveChanges();
         }
 
     }
