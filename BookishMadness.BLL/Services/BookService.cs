@@ -16,43 +16,39 @@ namespace BookishMadness.BLL.Services
             _mapper = mapper;
         }
 
-        public void Create(BookDTO item)
+        public BookDTO Create(BookDTO item)
         {
-            Database.Create(_mapper.Map<Book>(item));
+            var result = Database.Create(_mapper.Map<Book>(item));
             Database.SaveChanges();
+            return _mapper.Map<BookDTO>(result);
         }
 
         public void Delete(Guid id)
         {
             Database.Delete(id);
             Database.SaveChanges();
-
         }
 
         public List<BookDTO> Find()
         {
-            return _mapper.Map<List<BookDTO>>(Database.Find(x => x.Author.Contains("Garber")));
-
+            return _mapper.Map<List<BookDTO>>(Database.Find(x => x.Name.Contains("Pretty")));
         }
 
         public BookDTO Get(Guid id)
         {
-            var book = _mapper.Map<BookDTO>(Database.Get(id));
-            return book;
+            return _mapper.Map<BookDTO>(Database.Get(id));
         }
 
         public List<BookDTO> GetAllBooks()
         {
-            var books = _mapper.Map<List<BookDTO>>(Database.GetAll());
-            return books;
+            return _mapper.Map<List<BookDTO>>(Database.GetAll().ToList());
         }
 
-        public void Update(BookDTO item)
+        public BookDTO Update(BookDTO item)
         {
-            var book = _mapper.Map<Book>(item);
-            Database.Update(book);
+            var result = Database.Update(_mapper.Map<Book>(item));
             Database.SaveChanges();
+            return _mapper.Map<BookDTO>(result);
         }
-
     }
 }

@@ -19,8 +19,7 @@ namespace BookishMadness.Controllers
 
         public ActionResult<List<BookDTO>> Index()
         {
-            var it = _booksService.GetAllBooks();
-            return it;
+            return View();
         }
 
         public IActionResult Privacy()

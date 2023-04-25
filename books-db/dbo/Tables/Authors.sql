@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[Authors]
+(
+	[Id] UNIQUEIDENTIFIER  NOT NULL,
+	[Name] NVARCHAR(50) NOT NULL,
+	[Surname] NVARCHAR(50) NOT NULL,
+	[Description] NVARCHAR(MAX),
+	 CONSTRAINT [PK_Authors] PRIMARY KEY ([Id])
+);
