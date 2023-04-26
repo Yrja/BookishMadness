@@ -6,9 +6,9 @@ namespace BookishMadness.DAL.EF
     public class AppDbContext : DbContext
     {
         public DbSet<Book> Books { get; set; }
+        public DbSet<Author> Authors { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-            Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -17,11 +17,11 @@ namespace BookishMadness.DAL.EF
                 .Property(x => x.Status)
                 .HasConversion<string>();
 
-            modelBuilder.Entity<Book>().HasData(
-               new Book { Id = Guid.NewGuid(), Name = "Lord of the ring", Author = "J. R. R. Tolkien", Description = "Description", Status = Enums.BookStatus.Reading },
-               new Book { Id = Guid.NewGuid(), Name = "Caraval", Author = "Stephanie Garber", Description = "Description", Status = Enums.BookStatus.Reading },
-               new Book { Id = Guid.NewGuid(), Name = "Pretty reckless", Author = "L. J. Shenn", Description = "Description", Status = Enums.BookStatus.WantToRead }
-       );
+            //modelBuilder.Entity<Author>()
+            //    .HasMany(e => e.Books)
+            //    .WithOne(e => e.Author)
+            //    .HasForeignKey(e => e.AuthorId)
+            //    .HasPrincipalKey(e => e.Id);
         }
     }
 }

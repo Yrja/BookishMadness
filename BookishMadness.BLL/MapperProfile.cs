@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BookishMadness.BLL.DTOs;
 using BookishMadness.DAL.Entities;
 
 namespace BookishMadness.BLL
@@ -8,6 +9,8 @@ namespace BookishMadness.BLL
         public MapperProfile()
         {
             CreateMap<Book, BookDTO>()
+                .ReverseMap();
+            CreateMap<Author, AuthorDTO>()
                 .ReverseMap();
         }
     }

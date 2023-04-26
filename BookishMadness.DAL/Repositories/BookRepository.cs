@@ -14,9 +14,10 @@ namespace BookishMadness.DAL.Repositories
             this.db = db;
         }
 
-        public void Create(Book item)
+        public Book Create(Book item)
         {
             db.Books.Add(item);
+            return item;
         }
 
         public void Delete(Guid id)
@@ -33,17 +34,19 @@ namespace BookishMadness.DAL.Repositories
 
         public Book Get(Guid id)
         {
-            return db.Books.Find(id);
+            return db.Books.Include(it => it.Author)
+                .FirstOrDefault(it => it.Id.Equals(id));
         }
 
-        public IEnumerable<Book> GetAll()
+        public IQueryable<Book> GetAll()
         {
-            return db.Books;
+            return db.Books.Include(it => it.Author);
         }
 
-        public void Update(Book item)
+        public Book Update(Book item)
         {
             db.Entry(item).State = EntityState.Modified;
+            return item;
         }
 
         public void SaveChanges()

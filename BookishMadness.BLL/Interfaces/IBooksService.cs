@@ -7,8 +7,8 @@ namespace BookishMadness.BLL.Interfaces
         List<BookDTO> GetAllBooks();
         BookDTO Get(Guid id);
         List<BookDTO> Find();
-        void Create(BookDTO item);
-        void Update(BookDTO item);
+        BookDTO Create(BookDTO item);
+        BookDTO Update(BookDTO item);
         void Delete(Guid id);
     }
 }

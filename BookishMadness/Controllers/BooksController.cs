@@ -1,10 +1,12 @@
-﻿using BookishMadness.BLL.Interfaces;
+﻿using BookishMadness.BLL.DTOs;
+using BookishMadness.BLL.Interfaces;
 using BookishMadness.DAL.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookishMadness.Controllers
 {
-    [Route("[controller]")]
+    [Route("[controller]/[action]")]
+    [ApiController]
     public class BooksController : Controller
     {
         private readonly IBooksService _booksService;
@@ -14,79 +16,35 @@ namespace BookishMadness.Controllers
             _booksService = booksService;
         }
 
-        // GET: BooksController
-        public ActionResult<List<BookDTO>> Index()
+        [HttpGet]
+        public ActionResult<List<BookDTO>> AllBooks()
         {
-            return View();
+            return _booksService.GetAllBooks();
         }
 
-        // GET: BooksController/Details/5
-        public ActionResult Details(int id)
+        [HttpGet]
+        public ActionResult<BookDTO> Details(Guid id)
         {
-            return View();
+            return _booksService.Get(id);
         }
 
-        // GET: BooksController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: BooksController/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult<BookDTO> Create(BookDTO book)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return _booksService.Create(book);
         }
 
-        // GET: BooksController/Edit/5
-        public ActionResult Edit(int id)
+        [HttpPut]
+        public ActionResult<BookDTO> Edit(BookDTO book)
         {
-            return View();
+            return _booksService.Update(book);
         }
 
-        // POST: BooksController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        [HttpDelete]
+        public ActionResult Delete(Guid id)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: BooksController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: BooksController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            _booksService.Delete(id);
+            return Ok();
         }
     }
 }

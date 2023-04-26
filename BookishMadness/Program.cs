@@ -21,12 +21,16 @@ string connectionString = builder.Configuration.GetConnectionString("DefaultConn
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddSingleton(mapper);
 builder.Services.AddScoped<IRepository<Book>, BookRepository>();
+builder.Services.AddScoped<IRepository<Author>, AuthorRepository>();
 builder.Services.AddTransient<IBooksService, BookService>();
+builder.Services.AddTransient<IAuthorService, AuthorService>();
 
 
 
 builder.Services.AddControllersWithViews()
-    .AddNewtonsoftJson();
+    .AddNewtonsoftJson(options =>
+      options.SerializerSettings.ReferenceLoopHandling =
+        Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
 var app = builder.Build();
 
@@ -44,7 +48,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
-
+app.MapControllers();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
