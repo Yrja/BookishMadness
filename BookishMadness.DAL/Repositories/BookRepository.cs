@@ -40,7 +40,8 @@ namespace BookishMadness.DAL.Repositories
 
         public IQueryable<Book> GetAll()
         {
-            return db.Books.Include(it => it.Author);
+            return db.Books.Include(it => it.Author)
+                .Include(it => it.Genres);
         }
 
         public Book Update(Book item)

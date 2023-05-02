@@ -9,10 +9,9 @@ namespace BookishMadness.DAL.Entities
         public string Name { get; set; }
         public string Description { get; set; }
         public int PagesCount { get; set; }
-        public string Genre { get; set; }
         public BookStatus Status { get; set; }
         public AuthorDTO Author { get; set; }
         public Guid AuthorId { get; set; }
-
+        public List<GenreDTO> Genres { get; set; }
     }
 }

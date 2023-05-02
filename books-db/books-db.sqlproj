@@ -131,8 +131,6 @@
     <None Include="dbo\Tables\InsertInitialData.sql" />
     <Build Include="dbo\Tables\Authors.sql" />
     <Build Include="dbo\Tables\Genres.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="dbo\Migrations\04-25-2023_Remove_Author_Column_From_[dbo].[Books].sql" />
+    <Build Include="dbo\Tables\BookGenre.sql" />
   </ItemGroup>
 </Project>

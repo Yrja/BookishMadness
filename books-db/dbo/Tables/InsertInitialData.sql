@@ -8,3 +8,13 @@
 --INSERT INTO Authors(Id, Name, Surname, Description)
 --VALUES
 --	(NEWID(), 'Stephanie', 'Garber', 'Hi! Thanks so much for stopping by this page. I’m only on this site occasionally, so if you’d like to send me a message, please use the contact form on my website: http://stephaniegarberauthor.com.')
+
+--INSERT INTO Genres (Id, Name)
+--VALUES
+--(NEWID(),'Young adult')
+--,(NEWID(),'Fantasy')
+--,(NEWID(),'Romance')
+--,(NEWID(),'Biography')
+--,(NEWID(),'Comics')
+--,(NEWID(),'Crimes')
+--,(NEWID(),'Thriller')

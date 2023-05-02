@@ -7,47 +7,62 @@ namespace BookishMadness.BLL.Services
 {
     public class BookService : IBooksService
     {
-        IRepository<Book> Database { get; set; }
-        private IMapper _mapper;
+        private readonly IRepository<Book> _booksRepository;
+        private readonly IMapper _mapper;
+        private readonly IGenreRepository _genreRepository;
 
-        public BookService(IRepository<Book> database, IMapper mapper)
+        public BookService(IRepository<Book> booksDepository, IMapper mapper, IGenreRepository genreRepository)
         {
-            Database = database;
+            _booksRepository = booksDepository;
             _mapper = mapper;
+            _genreRepository = genreRepository;
         }
 
-        public BookDTO Create(BookDTO item)
+        public BookDTO Create(BookDTO source)
         {
-            var result = Database.Create(_mapper.Map<Book>(item));
-            Database.SaveChanges();
+            Book sourceEntity = _mapper.Map<Book>(source);
+            IEnumerable<string> sourceEntityGenres = sourceEntity.Genres.Select(it => it.Name);
+            IEnumerable<Genre> currentBookDbGenres = _genreRepository.GetAllGenres()
+                .ToList()
+                .Where(it => sourceEntityGenres.Contains(it.Name, StringComparer.OrdinalIgnoreCase));
+
+            foreach (var genre in currentBookDbGenres)
+            {
+                int genreIndex = sourceEntity.Genres.FindIndex(it => it.Name.Equals(genre.Name, StringComparison.InvariantCultureIgnoreCase));
+                sourceEntity.Genres[genreIndex] = genre;
+            }
+
+            var result = _booksRepository.Create(sourceEntity);
+            _booksRepository.SaveChanges();
+
             return _mapper.Map<BookDTO>(result);
         }
 
         public void Delete(Guid id)
         {
-            Database.Delete(id);
-            Database.SaveChanges();
+            _booksRepository.Delete(id);
+            _booksRepository.SaveChanges();
         }
 
         public List<BookDTO> Find()
         {
-            return _mapper.Map<List<BookDTO>>(Database.Find(x => x.Name.Contains("Pretty")));
+            return _mapper.Map<List<BookDTO>>(_booksRepository.Find(x => x.Name.Contains("Pretty")));
         }
 
         public BookDTO Get(Guid id)
         {
-            return _mapper.Map<BookDTO>(Database.Get(id));
+            return _mapper.Map<BookDTO>(_booksRepository.Get(id));
         }
 
         public List<BookDTO> GetAllBooks()
         {
-            return _mapper.Map<List<BookDTO>>(Database.GetAll().ToList());
+            return _mapper.Map<List<BookDTO>>(_booksRepository.GetAll().ToList());
         }
 
         public BookDTO Update(BookDTO item)
         {
-            var result = Database.Update(_mapper.Map<Book>(item));
-            Database.SaveChanges();
+            var result = _booksRepository.Update(_mapper.Map<Book>(item));
+            _booksRepository.SaveChanges();
             return _mapper.Map<BookDTO>(result);
         }
     }
