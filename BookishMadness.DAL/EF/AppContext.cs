@@ -7,6 +7,7 @@ namespace BookishMadness.DAL.EF
     {
         public DbSet<Book> Books { get; set; }
         public DbSet<Author> Authors { get; set; }
+        public DbSet<Genre> Genres { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
@@ -16,12 +17,6 @@ namespace BookishMadness.DAL.EF
             modelBuilder.Entity<Book>()
                 .Property(x => x.Status)
                 .HasConversion<string>();
-
-            //modelBuilder.Entity<Author>()
-            //    .HasMany(e => e.Books)
-            //    .WithOne(e => e.Author)
-            //    .HasForeignKey(e => e.AuthorId)
-            //    .HasPrincipalKey(e => e.Id);
         }
     }
 }

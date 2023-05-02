@@ -12,6 +12,8 @@ namespace BookishMadness.BLL
                 .ReverseMap();
             CreateMap<Author, AuthorDTO>()
                 .ReverseMap();
+            CreateMap<Genre, GenreDTO>()
+                .ReverseMap();
         }
     }
 }
