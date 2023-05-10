@@ -8,6 +8,7 @@ namespace BookishMadness.DAL.EF
         public DbSet<Book> Books { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Genre> Genres { get; set; }
+        public DbSet<Reaction> Reactions { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
@@ -17,6 +18,11 @@ namespace BookishMadness.DAL.EF
             modelBuilder.Entity<Book>()
                 .Property(x => x.Status)
                 .HasConversion<string>();
+
+            modelBuilder.Entity<Reaction>()
+                .Property(p => p.HasLike)
+                .HasColumnName("Reaction")
+                .HasConversion<bool>();
         }
     }
 }

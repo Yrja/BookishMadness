@@ -13,5 +13,6 @@ namespace BookishMadness.DAL.Entities
         public AuthorDTO Author { get; set; }
         public Guid AuthorId { get; set; }
         public List<GenreDTO> Genres { get; set; }
+        public List<ReactionDTO> Reactions { get; set; }
     }
 }

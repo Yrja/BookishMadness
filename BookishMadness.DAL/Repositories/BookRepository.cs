@@ -35,12 +35,14 @@ namespace BookishMadness.DAL.Repositories
         public Book Get(Guid id)
         {
             return db.Books.Include(it => it.Author)
+                .Include(it => it.Reactions)
                 .FirstOrDefault(it => it.Id.Equals(id));
         }
 
         public IQueryable<Book> GetAll()
         {
             return db.Books.Include(it => it.Author)
+                .Include(it => it.Reactions)
                 .Include(it => it.Genres);
         }
 

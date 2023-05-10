@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[Reactions]
+(
+	[Id] UNIQUEIDENTIFIER NOT NULL,
+	[Reaction] BIT NOT NULL,
+	[BookId] UNIQUEIDENTIFIER NOT NULL,
+	CONSTRAINT [PK_Reactions] PRIMARY KEY ([Id]),
+	CONSTRAINT [FK_Reactions_Books_BookId] FOREIGN KEY ([BookId]) REFERENCES [Books] ([Id]) ON DELETE CASCADE
+)
