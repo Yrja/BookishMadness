@@ -23,8 +23,10 @@ builder.Services.AddSingleton(mapper);
 builder.Services.AddScoped<IRepository<Book>, BookRepository>();
 builder.Services.AddScoped<IRepository<Author>, AuthorRepository>();
 builder.Services.AddScoped<IGenreRepository, GenreRepository>();
+builder.Services.AddScoped<IReactionRepository, ReactionRepository>();
 builder.Services.AddTransient<IBooksService, BookService>();
 builder.Services.AddTransient<IAuthorService, AuthorService>();
+builder.Services.AddTransient<IReactionService, ReactionService>();
 
 
 
