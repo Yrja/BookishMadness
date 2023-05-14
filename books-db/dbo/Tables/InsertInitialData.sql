@@ -1,20 +1,84 @@
-﻿--INSERT INTO Books (Id, Name, Author, Description, Status, PagesCount, AuthorId)
---VALUES
---	 (NEWID (),'Lord of the ring', 'J. R. R. Tolkien', 'One Ring to rule them all, One Ring to find them, One Ring to bring them all and in the darkness bind them','Reading', 1536, 'b4e7e4ff-39eb-4c0e-8161-b259d39c7d8f')
---	,(NEWID (),'Caraval', 'Stephanie Garber', 'A legendary competition. A mesmerizing romance. An unbreakable bond between two sisters.','Reading', 448, 'b4e7e4ff-39eb-4c0e-8161-b259d39c7d8f')
---	,(NEWID (),'Pretty reckless', 'L. J. Shenn', 'From USA Today and Washington Post bestselling author L.J. Shen comes an intense, high school enemies-to-lovers romance with a twist.','WantToRead', 362, 'b4e7e4ff-39eb-4c0e-8161-b259d39c7d8f');
+﻿-- Authors' ids
+DECLARE @SGId UNIQUEIDENTIFIER = NEWID()
+DECLARE @RKId UNIQUEIDENTIFIER = NEWID()
+DECLARE @BSId UNIQUEIDENTIFIER = NEWID()
+
+--Genres' ids
+DECLARE @FantsyId UNIQUEIDENTIFIER = NEWID()
+DECLARE @RomanceId UNIQUEIDENTIFIER = NEWID()
+DECLARE @YoungAdultId UNIQUEIDENTIFIER = NEWID()
+DECLARE @CommedyId UNIQUEIDENTIFIER = NEWID()
+
+--Books' ids
+DECLARE @GildId UNIQUEIDENTIFIER = NEWID()
+DECLARE @GlintId UNIQUEIDENTIFIER = NEWID()
+DECLARE @CaravalId UNIQUEIDENTIFIER = NEWID()
+DECLARE @LegendaryId UNIQUEIDENTIFIER = NEWID()
+DECLARE @MistbornId UNIQUEIDENTIFIER = NEWID()
+
+--Reactions' ids
+DECLARE @Reaction1 UNIQUEIDENTIFIER = NEWID()
+DECLARE @Reaction2 UNIQUEIDENTIFIER = NEWID()
+DECLARE @Reaction3 UNIQUEIDENTIFIER = NEWID()
+DECLARE @Reaction4 UNIQUEIDENTIFIER = NEWID()
+DECLARE @Reaction5 UNIQUEIDENTIFIER = NEWID()
+DECLARE @Reaction6 UNIQUEIDENTIFIER = NEWID()
+DECLARE @Reaction7 UNIQUEIDENTIFIER = NEWID()
 
 
---INSERT INTO Authors(Id, Name, Surname, Description)
---VALUES
---	(NEWID(), 'Stephanie', 'Garber', 'Hi! Thanks so much for stopping by this page. I’m only on this site occasionally, so if you’d like to send me a message, please use the contact form on my website: http://stephaniegarberauthor.com.')
 
---INSERT INTO Genres (Id, Name)
---VALUES
---(NEWID(),'Young adult')
---,(NEWID(),'Fantasy')
---,(NEWID(),'Romance')
---,(NEWID(),'Biography')
---,(NEWID(),'Comics')
---,(NEWID(),'Crimes')
---,(NEWID(),'Thriller')
+IF(NOT EXISTS(SELECT 1 FROM dbo.Authors))
+
+BEGIN
+  INSERT INTO Authors(Id, Name, Surname, Description)
+	VALUES
+		 (@SGId, 'Stephanie', 'Garber', 'Description about Stephanie Garber')
+		,(@RKId, 'Raven', 'Kennedy', 'Description about RavenKennedy')
+		,(@BSId, 'Brandon', 'Sanderson', 'Description about Brandon Sanderson')
+END;
+
+IF(NOT EXISTS(SELECT 1 FROM dbo.Genres))
+BEGIN
+  INSERT INTO Genres (Id, Name)
+	VALUES
+		 (@FantsyId,'Fantasy')
+		,(@RomanceId,'Romance')
+		,(@CommedyId,'Commedy')
+		,(@YoungAdultId,'Young adult')
+END;
+
+IF(NOT EXISTS(SELECT 1 FROM dbo.Books))
+BEGIN
+ INSERT INTO Books (Id, Name, Description, Status, PagesCount, AuthorId)
+	VALUES
+		 (@GildId,'Gild',  'Description for Gild','Read', 432, @RKId)
+		,(@GlintId,'Glint', 'Description Glint','Reading', 448, @RKId)
+		,(@CaravalId, 'Caraval', 'Caraval description', 'WantToRead', 362, @SGId)
+		,(@MistbornId, 'Mistborn', 'Mistborn description', 'WantToRead', 1536, @SGId)
+END;
+
+IF(NOT EXISTS(SELECT 1 FROM dbo.BookGenre))
+BEGIN
+ INSERT INTO BookGenre(BooksId, GenresId)
+	VALUES
+		 (@GildId,@FantsyId)
+		,(@GildId,@RomanceId)
+		,(@GlintId,@FantsyId)
+		,(@GlintId,@RomanceId)
+		,(@CaravalId, @YoungAdultId)
+		,(@CaravalId, @RomanceId)
+		,(@MistbornId, @FantsyId)
+END;
+
+IF(NOT EXISTS(SELECT 1 FROM dbo.Reactions))
+BEGIN
+ INSERT INTO Reactions(Id, Reaction, BookId, CreatedOn, ModifiedOn)
+	VALUES
+		 (@Reaction1, 1, @GildId, '2023-01-23 13:45:30.000', NULL)
+		,(@Reaction2, 0, @GildId, '2023-02-15 13:45:30.000',NULL)
+		,(@Reaction3, 1, @GildId, '2023-02-15 13:45:30.000',NULL)
+		,(@Reaction4, 1, @GlintId, '2023-05-16 13:45:30.000',NULL)
+		,(@Reaction5, 1, @GildId, '2023-05-15 13:45:30.000',NULL)
+		,(@Reaction6, 1, @CaravalId, '2023-02-15 13:45:30.000',NULL)
+		,(@Reaction7, 1, @MistbornId, '2023-04-15 13:45:30.000', NULL)
+END;

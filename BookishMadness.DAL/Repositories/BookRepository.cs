@@ -36,6 +36,7 @@ namespace BookishMadness.DAL.Repositories
         {
             return db.Books.Include(it => it.Author)
                 .Include(it => it.Reactions)
+                .Include(it => it.Genres)
                 .FirstOrDefault(it => it.Id.Equals(id));
         }
 
