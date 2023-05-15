@@ -19,10 +19,20 @@ namespace BookishMadness.DAL.EF
                 .Property(x => x.Status)
                 .HasConversion<string>();
 
-            modelBuilder.Entity<Reaction>()
-                .Property(p => p.HasLike)
+            modelBuilder.Entity<Reaction>(entity =>
+            {
+                entity.Property(p => p.HasLike)
                 .HasColumnName("Reaction")
                 .HasConversion<bool>();
+
+                entity.Property(p => p.CreatedOn)
+                .HasColumnType("datetime")
+                .HasConversion(v => v, v => DateTime.SpecifyKind(v, DateTimeKind.Utc));
+
+                entity.Property(p => p.ModifiedOn)
+                .HasColumnType("datetime")
+                .HasConversion(v => v, v => DateTime.SpecifyKind(v, DateTimeKind.Utc));
+            });
         }
     }
 }
