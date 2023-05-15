@@ -16,6 +16,7 @@ namespace BookishMadness.DAL.Repositories
 
         public Reaction AddReaction(Reaction reaction)
         {
+            reaction.ModifiedOn = reaction.CreatedOn;
             _context.Reactions.Add(reaction);
             return reaction;
         }
@@ -36,6 +37,7 @@ namespace BookishMadness.DAL.Repositories
 
         public Reaction UpdateReaction(Reaction reaction)
         {
+            reaction.ModifiedOn = DateTime.UtcNow;
             _context.Entry(reaction).State = EntityState.Modified;
             return reaction;
         }

@@ -31,7 +31,7 @@ namespace BookishMadness.BLL.Services
         }
 
         public ReactionDTO UpdateReaction(ReactionDTO reaction)
-        {
+        {   
             var result = _reactionRepository.UpdateReaction(_mapper.Map<Reaction>(reaction));
             _reactionRepository.SaveChanges();
             return _mapper.Map<ReactionDTO>(result);
