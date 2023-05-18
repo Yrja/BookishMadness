@@ -17,6 +17,8 @@
 		,authors.Name + ' ' + authors.Surname AuthorFullName
 		,tbl.AvgReaction
 		,tbl.RectionsCount
+		,LikesQuantity
+		,DislikesQuantity
 	FROM tbl
 LEFT JOIN dbo.Books books ON tbl.BookId = books.Id
 LEFT JOIN dbo.Authors authors ON books.AuthorId = authors.Id
