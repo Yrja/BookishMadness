@@ -4,7 +4,7 @@
 		SELECT
 			 books.Id BookId
 			,Round(AVG(Cast(reactions.Reaction AS Float)), 4) AvgReaction
-			,COUNT(reactions.Reaction) RectionsCount
+			,COUNT(reactions.Reaction) ReactionsCount
 			,SUM(reactions.Reaction) LikesQuantity
 			,COUNT(reactions.Reaction) - SUM(reactions.Reaction) DislikesQuantity
 		FROM dbo.Books AS books
@@ -16,9 +16,9 @@
 		,books.Name
 		,authors.Name + ' ' + authors.Surname AuthorFullName
 		,tbl.AvgReaction
-		,tbl.RectionsCount
+		,tbl.ReactionsCount
 		,LikesQuantity
 		,DislikesQuantity
 	FROM tbl
-LEFT JOIN dbo.Books books ON tbl.BookId = books.Id
-LEFT JOIN dbo.Authors authors ON books.AuthorId = authors.Id
+	LEFT JOIN dbo.Books books ON tbl.BookId = books.Id
+	LEFT JOIN dbo.Authors authors ON books.AuthorId = authors.Id
