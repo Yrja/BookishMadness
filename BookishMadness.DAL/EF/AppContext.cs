@@ -24,7 +24,7 @@ namespace BookishMadness.DAL.EF
             {
                 entity.Property(p => p.HasLike)
                 .HasColumnName("Reaction")
-                .HasConversion<bool>();
+                .HasConversion<int>();
 
                 entity.Property(p => p.CreatedOn)
                 .HasColumnType("datetime")
