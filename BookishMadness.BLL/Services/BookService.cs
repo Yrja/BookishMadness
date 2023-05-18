@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BookishMadness.BLL.DTOs;
 using BookishMadness.BLL.Interfaces;
 using BookishMadness.DAL.Entities;
 using BookishMadness.DAL.Interfaces;
@@ -7,11 +8,11 @@ namespace BookishMadness.BLL.Services
 {
     public class BookService : IBooksService
     {
-        private readonly IRepository<Book> _booksRepository;
+        private readonly IBookRepository _booksRepository;
         private readonly IMapper _mapper;
         private readonly IGenreRepository _genreRepository;
 
-        public BookService(IRepository<Book> booksDepository, IMapper mapper, IGenreRepository genreRepository)
+        public BookService(IBookRepository booksDepository, IMapper mapper, IGenreRepository genreRepository)
         {
             _booksRepository = booksDepository;
             _mapper = mapper;
@@ -57,6 +58,11 @@ namespace BookishMadness.BLL.Services
         public List<BookDTO> GetAllBooks()
         {
             return _mapper.Map<List<BookDTO>>(_booksRepository.GetAll().ToList());
+        }
+
+        public List<BookSummaryDTO> GetBookSummaries()
+        {
+            return _mapper.Map<List<BookSummaryDTO>>(_booksRepository.GetBooksSummary());
         }
 
         public BookDTO Update(BookDTO item)

@@ -1,4 +1,5 @@
-﻿using BookishMadness.DAL.Entities;
+﻿using BookishMadness.BLL.DTOs;
+using BookishMadness.DAL.Entities;
 
 namespace BookishMadness.BLL.Interfaces
 {
@@ -10,5 +11,6 @@ namespace BookishMadness.BLL.Interfaces
         BookDTO Create(BookDTO item);
         BookDTO Update(BookDTO item);
         void Delete(Guid id);
+        List<BookSummaryDTO> GetBookSummaries();
     }
 }

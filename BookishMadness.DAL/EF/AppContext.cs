@@ -9,6 +9,7 @@ namespace BookishMadness.DAL.EF
         public DbSet<Author> Authors { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Reaction> Reactions { get; set; }
+        public DbSet<BookSummary> BooksSummary { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
@@ -32,6 +33,11 @@ namespace BookishMadness.DAL.EF
                 entity.Property(p => p.ModifiedOn)
                 .HasColumnType("datetime")
                 .HasConversion(v => v, v => DateTime.SpecifyKind(v, DateTimeKind.Utc));
+            });
+
+            modelBuilder.Entity<BookSummary>(entity =>
+            {
+                entity.HasNoKey().ToView("vwBooksSummary");
             });
         }
     }

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookishMadness.DAL.Repositories
 {
-    public class BookRepository : IRepository<Book>
+    public class BookRepository : IBookRepository
     {
         private AppDbContext db;
 
@@ -56,6 +56,11 @@ namespace BookishMadness.DAL.Repositories
         public void SaveChanges()
         {
             db.SaveChanges();
+        }
+
+        public IQueryable<BookSummary> GetBooksSummary()
+        {
+            return db.BooksSummary;
         }
     }
 }

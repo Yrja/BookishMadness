@@ -46,5 +46,11 @@ namespace BookishMadness.Controllers
             _booksService.Delete(id);
             return Ok();
         }
+
+        [HttpGet]
+        public ActionResult<List<BookSummaryDTO>> AllBooksSummaries()
+        {
+            return _booksService.GetBookSummaries();
+        }
     }
 }
