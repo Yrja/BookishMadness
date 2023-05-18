@@ -54,7 +54,7 @@ BEGIN
 		 (@GildId,'Gild',  'Description for Gild','Read', 432, @RKId)
 		,(@GlintId,'Glint', 'Description Glint','Reading', 448, @RKId)
 		,(@CaravalId, 'Caraval', 'Caraval description', 'WantToRead', 362, @SGId)
-		,(@MistbornId, 'Mistborn', 'Mistborn description', 'WantToRead', 1536, @SGId)
+		,(@MistbornId, 'Mistborn', 'Mistborn description', 'WantToRead', 1536, @BSId)
 END;
 
 IF(NOT EXISTS(SELECT 1 FROM dbo.BookGenre))

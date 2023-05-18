@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[Reactions]
 (
 	[Id] UNIQUEIDENTIFIER NOT NULL,
-	[Reaction] BIT NOT NULL,
+	[Reaction] INT NOT NULL,
 	[BookId] UNIQUEIDENTIFIER NOT NULL,
 	[CreatedOn] DATETIME NOT NULL,
 	[ModifiedOn] DATETIME,
