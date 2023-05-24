@@ -123,6 +123,8 @@
     <Folder Include="dbo\Tables\" />
     <Folder Include="dbo\Indexes" />
     <Folder Include="dbo\Views" />
+    <Folder Include="dbo\StoredProcedures" />
+    <Folder Include="dbo\Functions" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Books.sql">
@@ -138,5 +140,8 @@
     <Build Include="dbo\Indexes\IX_BookGenre_GenresId.sql" />
     <Build Include="dbo\Tables\Reactions.sql" />
     <Build Include="dbo\Views\vwBooksSummary.sql" />
+    <Build Include="dbo\Functions\fn_FullName.sql" />
+    <Build Include="dbo\StoredProcedures\sp_BookSummary.sql" />
+    <Build Include="dbo\Functions\fn_BookSummary.sql" />
   </ItemGroup>
 </Project>
