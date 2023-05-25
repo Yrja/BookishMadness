@@ -11,6 +11,6 @@ namespace BookishMadness.BLL.Interfaces
         BookDTO Create(BookDTO item);
         BookDTO Update(BookDTO item);
         void Delete(Guid id);
-        List<BookSummaryDTO> GetBookSummaries();
+        List<BookSummaryDTO> GetBookSummaries(DateTime? dateFrom, DateTime? dateTo, Guid? bookId, bool useProcedure);
     }
 }

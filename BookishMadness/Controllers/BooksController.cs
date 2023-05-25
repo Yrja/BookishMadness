@@ -48,9 +48,9 @@ namespace BookishMadness.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<BookSummaryDTO>> AllBooksSummaries()
+        public ActionResult<List<BookSummaryDTO>> AllBooksSummaries(DateTime? dateFrom, DateTime? dateTo, Guid? bookId, bool useProcedure = true)
         {
-            return _booksService.GetBookSummaries();
+            return _booksService.GetBookSummaries(dateFrom, dateTo, bookId, useProcedure);
         }
     }
 }

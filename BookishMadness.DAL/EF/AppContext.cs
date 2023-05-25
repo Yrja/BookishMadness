@@ -10,6 +10,8 @@ namespace BookishMadness.DAL.EF
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Reaction> Reactions { get; set; }
         public DbSet<BookSummary> BooksSummary { get; set; }
+
+
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
@@ -39,6 +41,11 @@ namespace BookishMadness.DAL.EF
             {
                 entity.HasNoKey().ToView("vwBooksSummary");
             });
+
+            modelBuilder.HasDbFunction(() => BookSummary(default, default, default))
+                .HasName("fn_BookSummary");
         }
+
+        public IQueryable<BookSummary> BookSummary(DateTime? dateFrom, DateTime? dateTo, Guid? bookId) => FromExpression(() => BookSummary(dateFrom, dateTo, bookId));
     }
 }
