@@ -9,7 +9,7 @@ namespace BookishMadness.DAL.Interfaces
         IEnumerable<Book> Find(Func<Book, Boolean> predicate);
         Book Create(Book item);
         Book Update(Book item);
-        IQueryable<BookSummary> GetBooksSummary();
+        IQueryable<BookSummary> GetBooksSummary(DateTime? dateFrom, DateTime? dateTo, Guid? bookId, bool useProcedure);
         void Delete(Guid id);
         void SaveChanges();
     }

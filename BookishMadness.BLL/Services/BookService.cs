@@ -60,9 +60,9 @@ namespace BookishMadness.BLL.Services
             return _mapper.Map<List<BookDTO>>(_booksRepository.GetAll().ToList());
         }
 
-        public List<BookSummaryDTO> GetBookSummaries()
+        public List<BookSummaryDTO> GetBookSummaries(DateTime? dateFrom, DateTime? dateTo, Guid? bookId, bool useProcedure)
         {
-            return _mapper.Map<List<BookSummaryDTO>>(_booksRepository.GetBooksSummary());
+            return _mapper.Map<List<BookSummaryDTO>>(_booksRepository.GetBooksSummary(dateFrom, dateTo, bookId, useProcedure));
         }
 
         public BookDTO Update(BookDTO item)
