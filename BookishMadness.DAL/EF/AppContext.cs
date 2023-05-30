@@ -46,6 +46,6 @@ namespace BookishMadness.DAL.EF
                 .HasName("fn_BookSummary");
         }
 
-        public IQueryable<BookSummary> BookSummary(DateTime dateFrom, DateTime dateTo, Guid bookId) => FromExpression(() => BookSummary(dateFrom, dateTo, bookId));
+        public IQueryable<BookSummary> BookSummary(DateTime? dateFrom, DateTime? dateTo, Guid? bookId) => FromExpression(() => BookSummary(dateFrom, dateTo, bookId));
     }
 }
