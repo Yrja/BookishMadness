@@ -41,6 +41,7 @@ namespace BookishMadness.Controllers
         }
 
         [HttpDelete]
+        [Route("{id}")]
         public ActionResult Delete(Guid id)
         {
             _booksService.Delete(id);
