@@ -3,6 +3,7 @@ using BookishMadness.BLL.DTOs;
 using BookishMadness.BLL.Interfaces;
 using BookishMadness.DAL.Entities;
 using BookishMadness.DAL.Interfaces;
+using BookishMadness.DAL.Strategy;
 
 namespace BookishMadness.BLL.Services
 {
@@ -62,7 +63,14 @@ namespace BookishMadness.BLL.Services
 
         public List<BookSummaryDTO> GetBookSummaries(DateTime? dateFrom, DateTime? dateTo, Guid? bookId, bool useProcedure)
         {
-            return _mapper.Map<List<BookSummaryDTO>>(_booksRepository.GetBooksSummary(dateFrom, dateTo, bookId, useProcedure));
+            if (bookId is not null)
+            {
+                _booksRepository.Strategy = useProcedure ? new SPBookSummary() : new FuncBookSummary();
+
+                return _mapper.Map<List<BookSummaryDTO>>(_booksRepository.GetBooksSummary(dateFrom, dateTo, bookId, useProcedure));
+            }
+
+            return _mapper.Map<List<BookSummaryDTO>>(_booksRepository.AllBooks());
         }
 
         public BookDTO Update(BookDTO item)
