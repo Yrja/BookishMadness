@@ -1,8 +1,7 @@
-﻿using System.Xml.Linq;
-using BookishMadness.DAL.EF;
+﻿using BookishMadness.DAL.EF;
 using BookishMadness.DAL.Entities;
-using BookishMadness.DAL.Extensions;
 using BookishMadness.DAL.Interfaces;
+using BookishMadness.DAL.Strategy;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookishMadness.DAL.Repositories
@@ -10,6 +9,8 @@ namespace BookishMadness.DAL.Repositories
     public class BookRepository : IBookRepository
     {
         private AppDbContext db;
+
+        public IBooksSummaryStrategy Strategy { get; set; }
 
         public BookRepository(AppDbContext db)
         {
@@ -62,23 +63,12 @@ namespace BookishMadness.DAL.Repositories
 
         public IQueryable<BookSummary> GetBooksSummary(DateTime? dateFrom, DateTime? dateTo, Guid? bookId, bool useProcedure)
         {
-            if (dateFrom is null && dateTo is null && bookId is null)
-            {
-                return db.BooksSummary;
-            }
-            else
-            {
-                if (useProcedure)
-                    return db.LoadStoredProcedure("sp_BookSummary")
-                        .WithSqlParams(
-                            (nameof(dateFrom), dateFrom),
-                            (nameof(dateTo), dateTo),
-                            (nameof(bookId), bookId))
-                        .ExecuteStoredProcedure<BookSummary>()
-                        .AsQueryable();
-                else
-                    return db.BookSummary(dateFrom, dateTo, bookId);
-            }
+            return Strategy.GetBooksSummary(dateFrom, dateTo, bookId, db);
+        }
+
+        public IQueryable<BookSummary> AllBooks()
+        {
+            return db.BooksSummary;
         }
     }
 }
